@@ -11,25 +11,24 @@ The pipeline consists of three modules:
 ##Module 2 - GenBank files download 
 
 To retrieve multiples sequence reports from NCBI using eDirect, the basic command-line is:
-
-  for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
-  efetch -format gp > $i.txt; done
+    for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
+     efetch -format gp > $i.txt; done
 
 This command will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
 The AccNumList.txt is a scape sequence of AccNums. Here is an example for AccNumList.txt file:
 
-MF438399 /n
-MK274089
-MH112282
-MF689122
-KX968160
-KF766879
-KF766610
-KU505310
-KX366232
-MZ245764
-OW842403
-LC687133
+  MF438399
+  MK274089
+  MH112282
+  MF689122
+  KX968160
+  KF766879
+  KF766610
+  KU505310
+  KX366232
+  MZ245764
+  OW842403
+  LC687133
 
 
 Here is an example for one NCBI sequence reports:
@@ -43,16 +42,15 @@ Entrez Direct (eDirect): E-uilities on the Unix Command Line (https://www.ncbi.n
 
 Install EDirect software.
   Open a terminal window and execute one of the following two command:
-  
-  $ sh -c "$(curl -fsSL ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh)"
 
-  $ sh -c "$(wget -q ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh -O -)"
+    sh -c "$(curl -fsSL ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh)"
+
+    sh -c "$(wget -q ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh -O -)"
 
   One installation is complete, run:
-
-  $ export PATH=${PATH}:${HOME}/edirect
+    export PATH=${PATH}:${HOME}/edirect
     
-    to set the PATH for the current terminal session.
+  to set the PATH for the current terminal session.
 
 NOTE: EDirect runS on Unix and Macintosh and Windows (under the Cygwin Unix-emulation environment) 
 ____________________________________________________________________________________________________________________
