@@ -8,10 +8,11 @@ The pipeline consists of three modules:
 
 
 
-##Module 2 - GenBank files download 
+## Module 2 - GenBank files download 
 
 To retrieve multiples sequence reports from NCBI using eDirect, the basic command-line is:
-    for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
+
+    $for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
      efetch -format gp > $i.txt; done
 
 This command will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
