@@ -8,7 +8,7 @@ The pipeline consists of three modules:
 
 
 
-Module 2 - GenBank files download 
+##Module 2 - GenBank files download 
 
 To retrieve multiples sequence reports from NCBI using eDirect, the basic command-line is:
 
@@ -18,7 +18,7 @@ To retrieve multiples sequence reports from NCBI using eDirect, the basic comman
 This command will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
 The AccNumList.txt is a scape sequence of AccNums. Here is an example for AccNumList.txt file:
 
-MF438399
+MF438399 /n
 MK274089
 MH112282
 MF689122
