@@ -35,8 +35,8 @@ LC687133
 Here is an example for one NCBI sequence reports:
 
 
-LOCUS       MF438399                 441 bp    DNA     linear   ENV 03-DEC-2018
-DEFINITION  Uncultured bacterium clone cafs151 16S ribosomal RNA gene, partial
+# LOCUS       MF438399                 441 bp    DNA     linear   ENV 03-DEC-2018
+# DEFINITION  Uncultured bacterium clone cafs151 16S ribosomal RNA gene, partial
             sequence.
 ACCESSION   MF438399
 VERSION     MF438399.1
