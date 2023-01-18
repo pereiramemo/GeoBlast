@@ -12,7 +12,7 @@ The pipeline consists of three modules:
 
 To retrieve multiples sequence reports from NCBI we use eDirect software. 
 
-First modify the AccNumList.txt file by listing (escape separate) the accession numbers of the sequences of interest. 
+First modify the `AccNumList.txt` file by listing (escape separate) the accession numbers of the sequences of interest. 
 
 For example:
 
