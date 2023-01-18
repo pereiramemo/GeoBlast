@@ -42,9 +42,9 @@ For example:
 
 Then, execute the script `GenebkFiles_download.sh`
      
-     ```sh 
-     sh  GenebkFiles_download.sh
-     ```
+  ```sh 
+  sh  GenebkFiles_download.sh
+  ```
 
 This script will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
 
