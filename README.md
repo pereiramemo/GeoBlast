@@ -41,6 +41,7 @@ For example:
   LC687133
 
 Then, execute the script `GenebkFiles_download.sh`
+     
      ```sh 
      sh  GenebkFiles_download.sh
      ```
