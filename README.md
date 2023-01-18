@@ -10,13 +10,11 @@ The pipeline consists of three modules:
 
 ### Module 2 - GenBank files download 
 
-To retrieve multiples sequence reports from NCBI using eDirect, the basic command-line is:
+To retrieve multiples sequence reports from NCBI we use eDirect software. 
 
-    $for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
-     efetch -format gp > $i.txt; done
+First modify the AccNumList.txt file by listing (escape separate) the accession numbers of the sequences of interest. 
 
-This command will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
-The AccNumList.txt is a scape sequence of AccNums. Here is an example for AccNumList.txt file:
+For example:
 
   MF438399
   
@@ -42,6 +40,12 @@ The AccNumList.txt is a scape sequence of AccNums. Here is an example for AccNum
   
   LC687133
 
+Then, execute the script `GenebkFiles_download.sh`
+     ```sh 
+     sh  GenebkFiles_download.sh
+     ```
+
+This script will create a .txt file with the NCBI sequence reports for each acc. number listed in the AccNumList.txt.
 
 Here is an example for one NCBI sequence reports:
 
@@ -49,8 +53,9 @@ Here is an example for one NCBI sequence reports:
 <img width="556" alt="image" src="https://user-images.githubusercontent.com/65190576/212146230-7724fb38-108a-4a2a-8bf2-0aaa4238cf4c.png">
 
 ____________________________________________________________________________________________________________________
-
-Entrez Direct (eDirect): E-uilities on the Unix Command Line (https://www.ncbi.nlm.nih.gov/books/NBK179288/)
+ #### Prerequisites
+ 
+Entrez Direct (eDirect)(https://www.ncbi.nlm.nih.gov/books/NBK179288/)
 
 Install EDirect software.
   Open a terminal window and execute one of the following two command:
