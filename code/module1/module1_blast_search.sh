@@ -151,7 +151,7 @@ fi
 -num_threads "${NSLOTS}" 
 
 if [[ $? -ne "0" ]]; then
-  echo "blast ${INPUT} vs ${INPUT_DB} failed"
+  echo "blastn ${INPUT} vs ${INPUT_DB} failed"
   exit 1
 fi
 
