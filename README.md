@@ -9,13 +9,13 @@ The pipeline consists of three modules:
 ### Output
 
 /main folder:  
-enspb last raw  
-ensp blast filtered  
-ensp output table  
-ensp  /ASV:  
-ensp ensp blast raw  
-ensp ensp blast filtered  
-ensp ensp matches.gbk  
+&emsp;  blast raw  
+&emsp;  blast filtered  
+&emsp;  output table  
+&emsp;   /ASV:  
+&emsp;  &emsp;  blast raw  
+&emsp;  &emsp;  blast filtered  
+&emsp;  &emsp;  matches.gbk  
     
     
 ### Module 2 - GenBank files download 
