@@ -142,19 +142,20 @@ fi
 # 5. Run blast
 ###############################################################################
 
-if [[ ! -a "${INPUT_DB}".nhr ]]; then
+"${blastn}" \
+-query "${INPUT_DB}" \
+-out ${OUTPUT_DIR}/${SAMPLE_NAME}.blout \
+-db "${INPUT_DB}" \
+-evalue "${EVALUE}" \
+-outfmt 6 \
+-num_threads "${NSLOTS}" 
 
-  "${blastn}" \
-  -in "${INPUT_DB}" \
-  -input_type fasta \
-  -dbtype nucl \
-  -parse_seqids 
-
-  if [[ $? -ne "0" ]]; then
-    echo "makeblastdb ${INPUT_DB} failed"
-    exit 1
-  fi  
-  
+if [[ $? -ne "0" ]]; then
+  echo "blast ${INPUT} vs ${INPUT_DB} failed"
+  exit 1
 fi
 
+###############################################################################
+# 6. Parse blast output
+###############################################################################
   
