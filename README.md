@@ -13,6 +13,7 @@ The pipeline consists of three modules:
 &emsp;  blast filtered  
 &emsp;  output table  
 &emsp;   /ASV:  
+&emsp;  &emsp; acc.txt  
 &emsp;  &emsp;  blast raw  
 &emsp;  &emsp;  blast filtered  
 &emsp;  &emsp;  matches.gbk  
