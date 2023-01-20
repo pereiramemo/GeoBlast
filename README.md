@@ -8,14 +8,14 @@ The pipeline consists of three modules:
 
 ### Output
 
-/main folder:
-  blast raw
-  blast filtered
-  output table
-  /ASV:
-    blast raw
-    blast filtered
-    matches.gbk
+/main folder:  
+  blast raw  
+  blast filtered  
+  output table  
+  /ASV:  
+    blast raw  
+    blast filtered  
+    matches.gbk  
     
     
 ### Module 2 - GenBank files download 
