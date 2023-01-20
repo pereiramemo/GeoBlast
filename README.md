@@ -6,8 +6,18 @@ The pipeline consists of three modules:
 2. GenBank files download 
 3. Extract geographic location from GenBank files
 
+### Output
 
-
+/main folder:
+  blast raw
+  blast filtered
+  output table
+  /ASV:
+    blast raw
+    blast filtered
+    matches.gbk
+    
+    
 ### Module 2 - GenBank files download 
 
 To retrieve multiples sequence reports from NCBI we use eDirect software. 
