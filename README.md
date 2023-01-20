@@ -12,10 +12,9 @@ The pipeline consists of three modules:
   blast raw  
   blast filtered  
   output table  
-  /ASV:  
-    blast raw  
-    blast filtered  
-    matches.gbk  
+    /ASV:  
+      blast raw  
+      blast filtered  
     
     
 ### Module 2 - GenBank files download 
