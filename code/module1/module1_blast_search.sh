@@ -187,4 +187,6 @@ query_id_prev = query_id
   } 
 }' "${OUTPUT_DIR}/${SAMPLE_NAME}.blout"
 
-
+if [[ $? -ne "0" ]]; then
+  echo "awk command failed"
+fi  
