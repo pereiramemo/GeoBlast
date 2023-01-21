@@ -1,4 +1,4 @@
-# Pipeline amp_geo_analysis.sh
+# GeoBlast pipeline
 Identify geographic location of 16S rRNA amplicon sequences based on blast searches
 
 The pipeline consists of three modules:
