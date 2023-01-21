@@ -99,7 +99,7 @@ while :; do
   fi
   ;;
 #############
-  --overwrite)
+  --sample_name)
   if [[ -n "${2}" ]]; then
     SAMPLE_NAME="${2}"
     shift
@@ -143,7 +143,7 @@ fi
 ###############################################################################
 
 "${blastn}" \
--query "${INPUT_DB}" \
+-query "${INPUT}" \
 -out ${OUTPUT_DIR}/${SAMPLE_NAME}.blout \
 -db "${INPUT_DB}" \
 -evalue "${EVALUE}" \
@@ -156,6 +156,35 @@ if [[ $? -ne "0" ]]; then
 fi
 
 ###############################################################################
-# 6. Parse blast output
+# 6. Extract outputs
 ###############################################################################
-  
+
+# create a dir for each query sequence
+
+gawk -v OUTPUT_DIR="${OUTPUT_DIR}" \
+'BEGIN {query_id_prev = ""} {
+
+query_id=$1
+subject_id=$2
+subject2query[query_id][subject_id]=1
+
+if (query_id != query_id_prev) {
+  system("mkdir " OUTPUT_DIR"/"query_id)
+}
+
+print $0 >> OUTPUT_DIR"/"query_id"/"query_id".blout"
+
+query_id_prev = query_id
+
+} END {
+
+  for (query_id in subject2query) {
+    for (subject_id in  subject2query[query_id]) {
+    
+      print subject_id >> OUTPUT_DIR"/"query_id"/"query_id".txt"
+      
+    }
+  } 
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}.blout"
+
+
