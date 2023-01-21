@@ -10,7 +10,7 @@
 
 set -o pipefail
 
-source /home/epereira/workspace/dev/amp_geo_analysis/code/conf.sh
+source /home/epereira/workspace/dev/GeoBlast/code/conf.sh
 
 ###############################################################################
 # 2. Define help
@@ -24,8 +24,8 @@ Usage: ./module1_blast_search.sh
 --input_db CHAR                 input data base
 --min_id NUM                    minimum percentage of identity
 --min_len NUM                   minimum alignment length
---nslots NUM                    number of slots (used in BBDuk, UProC, and FragGeneScanPlusPlus) (default 2)
---output_prefix CHAR            prefix output name (default sample name)
+--nslots NUM                    number of slots (default 4)
+--output_dir CHAR               output dir name 
 --overwrite t|f                 overwrite current directory (default f)
 --sample_name CHAR              sample name (default input file name)
 EOF

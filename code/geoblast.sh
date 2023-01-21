@@ -172,6 +172,9 @@ if [[ -z "${NLSOTS}" ]]; then
   NLOSTS="4"
 fi
 
+if [[ -z "${SAMPLE_NAME}" ]]; then
+  SAMPLE_NAME=$(basename "${INPUT}" | sed -e "s/.fasta//" -e "s/.fa//")
+fi
 
 ###############################################################################
 # 6. Run module1: blastn search
@@ -186,6 +189,23 @@ fi
 --nslots "${NSLOTS}" \
 --output_dir "${OUTPUT_DIR}"
 
+if [[ ! -f "${INPUT}" ]]; then
+  echo "module1_blast_search.sh ${i} failed"
+  exit 1
+fi
 
+###############################################################################
+# 7. Run module2: gbk download
+###############################################################################
+
+"${CODE}"/module2_gbk_download.sh \
+--input "${INPUT}" \
+--nslots "${NSLOTS}" \
+--output_dir "${OUTPUT_DIR}"
+
+if [[ ! -f "${INPUT}" ]]; then
+  echo "module2_gbk_download.sh ${i} failed"
+  exit 1
+fi
 
 
