@@ -10,7 +10,7 @@
 
 set -o pipefail
 
-source /home/epereira/workspace/dev/GeoBlast/code/conf.sh
+source /home/epereira/workspace/dev/geoblast/code/conf.sh
 
 ###############################################################################
 # 2. Define help
@@ -24,7 +24,6 @@ Usage: ./module2_gbk_downlaod.sh
 --nslots NUM                    number of slots (default 4)
 --output_dir CHAR               output dir name 
 --overwrite t|f                 overwrite current directory (default f)
---sample_name CHAR              sample name (default input file name)
 EOF
 }
 
@@ -66,13 +65,6 @@ while :; do
     shift
   fi
   ;;
-#############
-  --sample_name)
-  if [[ -n "${2}" ]]; then
-    SAMPLE_NAME="${2}"
-    shift
-  fi
-  ;;  
 ############ End of all options.
   --)       
   shift
@@ -100,10 +92,10 @@ fi
 # 5. Download
 ###############################################################################
 
-for i in $(cat "${INPUT}"); DO
-  "${esearch}" -db nucleotide -query $i | \
+for i in $(cat "${INPUT}"); do
+  "${esearch}" -db nucleotide -query "${i}" | \
   "${efetch}" -format gp > "${OUTPUT_DIR}"/"${i}".gbk
-  
+  echo 
   if [[ ! -f "${INPUT}" ]]; then
     echo "Download ${i} failed"
     exit 1

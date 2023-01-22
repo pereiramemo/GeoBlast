@@ -10,7 +10,7 @@
 
 set -o pipefail
 
-source /home/epereira/workspace/dev/GeoBlast/code/conf.sh
+source /home/epereira/workspace/dev/geoblast/code/conf.sh
 
 ###############################################################################
 # 2. Define help
