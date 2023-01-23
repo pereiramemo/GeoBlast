@@ -9,6 +9,7 @@
 ###############################################################################
 
 set -o pipefail
+set +x
 
 source /home/epereira/workspace/dev/geoblast/code/conf.sh
 
@@ -18,12 +19,12 @@ source /home/epereira/workspace/dev/geoblast/code/conf.sh
 
 show_usage(){
   cat <<EOF
-Usage: ./module1_blast_search.sh 
+Usage: ./geoblast.sh 
 --help                          print this help
 --input CHAR                    input fasta file
 --input_db CHAR                 input data base
 --min_id NUM                    minimum percentage of identity
---min_len NUM                   minimum alignment length
+--min_perc_len NUM              minimum alignment percentage length
 --e_val NUM                     e-value
 --nslots NUM                    number of slots (default 2)
 --output_dir CHAR               output dir name 
@@ -64,9 +65,9 @@ while :; do
   fi
   ;;
 #############
-  --min_len)
+  --min_perc_len)
   if [[ -n "${2}" ]]; then
-    MIN_LEN="${2}"
+    MIN_PERC_LEN="${2}"
     shift
   fi
   ;;
@@ -97,14 +98,14 @@ while :; do
     OVERWRITE="${2}"
     shift
   fi
-  ;;
+  ;; 
 #############
-  --overwrite)
+  --sample_name)
   if [[ -n "${2}" ]]; then
     SAMPLE_NAME="${2}"
     shift
   fi
-  ;;  
+  ;;   
 ############ End of all options.
   --)       
   shift
@@ -134,25 +135,6 @@ if [[ ! -f "${INPUT_DB}" ]]; then
 fi
 
 ###############################################################################
-# 5. Check output directories
-###############################################################################
-
-if [[ -d "${OUTPUT_DIR}" ]]; then
-  if [[ "${OVERWRITE}" != "t" ]]; then
-    echo "${OUTPUT_DIR} already exist. Use \"--overwrite t\" to overwrite."
-    exit
-  fi
-  
-  if [[ "${OVERWRITE}" == "t" ]]; then
-    rm -r "${OUTPUT_DIR}" & mkdir -p "${OUTPUT_DIR}" 
-    if [[ $? -ne "0" ]]; then
-      echo "Failed to remove and create new output directory ${OUTPUT_DIR}"
-      exit 1
-    fi  
-  fi
-fi
-
-###############################################################################
 # 5. Define defaults
 ###############################################################################
 
@@ -160,52 +142,105 @@ if [[ -z "${MIN_ID}" ]]; then
   MIN_ID="99"
 fi
 
-if [[ -z "${MIN_LEN}" ]]; then
-  MIN_LEN="200"
+if [[ -z "${MIN_PERC_LEN}" ]]; then
+  MIN_PERC_LEN="99"
 fi
 
 if [[ -z "${EVALUE}" ]]; then
   EVALUE="1e-5"
 fi
 
-if [[ -z "${NLSOTS}" ]]; then
-  NLOSTS="4"
+if [[ -z "${NSLOTS}" ]]; then
+  NSLOTS="4"
+fi
+
+if [[ -z "${OVERWRITE}" ]]; then
+  OVERWRITE="f"
 fi
 
 if [[ -z "${SAMPLE_NAME}" ]]; then
-  SAMPLE_NAME=$(basename "${INPUT}" | sed -e "s/.fasta//" -e "s/.fa//")
-fi
+  SAMPLE_NAME=$(basename "${INPUT}" | sed -e "s/.fa$//" -e "s/.fasta$//")
+fi  
 
 ###############################################################################
-# 6. Run module1: blastn search
+# 6. Check output directories
 ###############################################################################
 
-"${CODE}"/module1_blast_search.sh \
+if [[ -d "${OUTPUT_DIR}" ]]; then
+
+  if [[ "${OVERWRITE}" != "t" ]]; then
+    echo "${OUTPUT_DIR} already exist. Use \"--overwrite t\" to overwrite."
+    exit
+  fi
+  
+  if [[ "${OVERWRITE}" == "t" ]]; then
+  
+    rm -r "${OUTPUT_DIR}" 
+      if [[ $? -ne "0" ]]; then
+        echo "rm -r ${OUTPUT_DIR} failed"
+        exit 1
+      fi  
+  fi    
+    
+  mkdir -p "${OUTPUT_DIR}" 
+  
+  if [[ $? -ne "0" ]]; then
+    echo "mkdir ${OUTPUT_DIR} failed"
+    exit 1
+  fi  
+  
+fi 
+
+if [[ ! -d "${OUTPUT_DIR}" ]]; then
+
+  mkdir -p "${OUTPUT_DIR}" 
+  if [[ $? -ne "0" ]]; then
+    echo "mkdir ${OUTPUT_DIR} failed"
+    exit 1
+  fi 
+fi  
+  
+###############################################################################
+# 7. Run module1: blastn search
+###############################################################################
+
+"${CODE}"/module1/module1_blast_search.sh \
 --input "${INPUT}" \
 --input_db "${INPUT_DB}" \
 --min_id "${MIN_ID}" \
---min_len "${MIN_LEN}" \
+--min_perc_len "${MIN_PERC_LEN}" \
 --e_value "${EVALUE}" \
 --nslots "${NSLOTS}" \
---output_dir "${OUTPUT_DIR}"
+--output_dir "${OUTPUT_DIR}" \
+--sample_name "${SAMPLE_NAME}"
 
-if [[ ! -f "${INPUT}" ]]; then
+if [[ $? -ne "0" ]]; then
   echo "module1_blast_search.sh ${i} failed"
   exit 1
 fi
 
 ###############################################################################
-# 7. Run module2: gbk download
+# 8. Run module2: gbk download
 ###############################################################################
 
-"${CODE}"/module2_gbk_download.sh \
---input "${INPUT}" \
---nslots "${NSLOTS}" \
---output_dir "${OUTPUT_DIR}"
+ls "${OUTPUT_DIR}"/*/*_acc.txt | \
+while read LINE; do
 
-if [[ ! -f "${INPUT}" ]]; then
-  echo "module2_gbk_download.sh ${i} failed"
-  exit 1
-fi
+  if [[ ! -s "${LINE}" ]]; then 
+    echo "file ${LINE} is empty"
+  fi  
+  
+  SUB_OUTPUT_DIR=$(dirname "${LINE}")
 
+  "${CODE}"/module2/module2_gbk_download.sh \
+  --input "${LINE}" \
+  --nslots "${NSLOTS}" \
+  --output_dir "${SUB_OUTPUT_DIR}"
+
+  if [[ ! -f "${INPUT}" ]]; then
+    echo "module2_gbk_download.sh ${i} failed"
+    exit 1
+  fi
+
+done
 

@@ -4,7 +4,7 @@
 
 BIN="/home/epereira/bin/"
 
-CODE="/home/epereira/workspace/dev/amp_geo_analysis/code"
+CODE="/home/epereira/workspace/dev/geoblast/code"
 
 ###############################################################################
 ### 2. Tools

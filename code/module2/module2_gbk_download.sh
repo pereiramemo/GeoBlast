@@ -95,7 +95,7 @@ fi
 for i in $(cat "${INPUT}"); do
   "${esearch}" -db nucleotide -query "${i}" | \
   "${efetch}" -format gp > "${OUTPUT_DIR}"/"${i}".gbk
-  echo 
+   
   if [[ ! -f "${INPUT}" ]]; then
     echo "Download ${i} failed"
     exit 1

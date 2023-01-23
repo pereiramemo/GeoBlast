@@ -23,7 +23,7 @@ Usage: ./module1_blast_search.sh
 --input CHAR                    input fasta file
 --input_db CHAR                 input data base
 --min_id NUM                    minimum percentage of identity
---min_len NUM                   minimum alignment length
+--min_perc_len NUM              minimum alignment percentage length
 --nslots NUM                    number of slots (default 4)
 --output_dir CHAR               output dir name 
 --overwrite t|f                 overwrite current directory (default f)
@@ -64,9 +64,9 @@ while :; do
   fi
   ;;
 #############
-  --min_len)
+  --min_perc_len)
   if [[ -n "${2}" ]]; then
-    MIN_LEN="${2}"
+    MIN_PERC_LEN="${2}"
     shift
   fi
   ;;
@@ -147,7 +147,7 @@ fi
 -out ${OUTPUT_DIR}/${SAMPLE_NAME}.blout \
 -db "${INPUT_DB}" \
 -evalue "${EVALUE}" \
--outfmt 6 \
+-outfmt "6 qseqid sseqid pident qlen slen length evalue" \
 -num_threads "${NSLOTS}" 
 
 if [[ $? -ne "0" ]]; then
@@ -156,7 +156,32 @@ if [[ $? -ne "0" ]]; then
 fi
 
 ###############################################################################
-# 6. Extract outputs
+# 6. Filter blout file
+###############################################################################
+
+awk -v min_perc_len="${MIN_PERC_LEN}" \
+    -v min_id="${MIN_ID}" \
+'{ 
+
+  pident=$3
+  qlen=$4
+  len=$6
+  pqlen = 100*len/qlen
+  
+  if (pident >= min_id && pqlen >= min_perc_len ) {
+    print $0
+  }
+
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}.blout" > \
+   "${OUTPUT_DIR}/${SAMPLE_NAME}_filt.blout"
+
+if [[ $? -ne "0" ]]; then
+  echo "awk filtering blout file failed"
+  exit 1
+fi  
+
+###############################################################################
+# 7. Extract outputs
 ###############################################################################
 
 # create a dir for each query sequence
@@ -179,13 +204,14 @@ query_id_prev = query_id
 } END {
 
   for (query_id in subject2query) {
-    for (subject_id in  subject2query[query_id]) {
+    for (subject_id in subject2query[query_id]) {
     
-      print subject_id >> OUTPUT_DIR"/"query_id"/"query_id".txt"
+      subject_id = gensub(/\..*/,"","g",subject_id)
+      print subject_id >> OUTPUT_DIR"/"query_id"/"query_id"_acc.txt"
       
     }
   } 
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}.blout"
+}' "${OUTPUT_DIR}/${SAMPLE_NAME}_filt.blout"
 
 if [[ $? -ne "0" ]]; then
   echo "awk command failed"
