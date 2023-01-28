@@ -16,6 +16,7 @@ The pipeline consists of three modules:
 &emsp;  &emsp; acc2download.txt  
 &emsp;  &emsp;  downloadad.gbk  
 &emsp;  &emsp;  blast filtered  
-&emsp;  &emsp;  parsed_gbk.tsv__ 
+&emsp;  &emsp;  parsed_gbk.tsv__
+
     
     
