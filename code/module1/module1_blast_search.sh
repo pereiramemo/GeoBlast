@@ -207,7 +207,7 @@ query_id_prev = query_id
     for (subject_id in subject2query[query_id]) {
     
       subject_id = gensub(/\..*/,"","g",subject_id)
-      print subject_id >> OUTPUT_DIR"/"query_id"/"query_id"_acc.txt"
+      print subject_id >> OUTPUT_DIR"/"query_id"/acc2download.txt"
       
     }
   } 

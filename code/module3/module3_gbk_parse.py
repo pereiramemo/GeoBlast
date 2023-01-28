@@ -1,4 +1,3 @@
-#!/bin/python python3
 
 """
 module3: extract Features information from (multi-)genbank file and create an string that can be printed in a file.

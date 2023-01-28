@@ -94,7 +94,7 @@ fi
 
 for i in $(cat "${INPUT}"); do
   "${esearch}" -db nucleotide -query "${i}" | \
-  "${efetch}" -format gp > "${OUTPUT_DIR}"/"${i}".gbk
+  "${efetch}" -format gp >> "${OUTPUT_DIR}/downloaded.gbk"
    
   if [[ ! -f "${INPUT}" ]]; then
     echo "Download ${i} failed"
@@ -102,6 +102,7 @@ for i in $(cat "${INPUT}"); do
   fi
   
 done
+
 
 # for i in $(cat AccNumList.txt $1);  do  esearch -db nucleotide -query $i |
 #  efetch -format gp > $i.txt; done

@@ -223,7 +223,7 @@ fi
 # 8. Run module2: gbk download
 ###############################################################################
 
-ls "${OUTPUT_DIR}"/*/*_acc.txt | \
+ls "${OUTPUT_DIR}"/*/"acc2download.txt" | \
 while read LINE; do
 
   if [[ ! -s "${LINE}" ]]; then 
@@ -243,4 +243,28 @@ while read LINE; do
   fi
 
 done
+
+###############################################################################
+# 9. Run module3: gbk parsing
+###############################################################################
+
+ls "${OUTPUT_DIR}"/*/downloaded.gbk | \
+while read LINE; do
+
+  if [[ ! -s "${LINE}" ]]; then 
+    echo "file ${LINE} is empty"
+  fi  
+  
+  SUB_OUTPUT_DIR=$(dirname "${LINE}")
+
+ "${python3}" "${CODE}"/module3/module3_gbk_parse.py \
+  --input_file "${LINE}" > "${SUB_OUTPUT_DIR}/parsed_gbk.tsv"
+  
+  if [[ ! -f "${INPUT}" ]]; then
+    echo "module3_gbk_parse.py ${i} failed"
+    exit 1
+  fi
+
+done
+
 
