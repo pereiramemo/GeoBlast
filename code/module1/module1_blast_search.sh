@@ -144,7 +144,7 @@ fi
 
 "${blastn}" \
 -query "${INPUT}" \
--out ${OUTPUT_DIR}/${SAMPLE_NAME}.blout \
+-out "${OUTPUT_DIR}/blout.tsv" \
 -db "${INPUT_DB}" \
 -evalue "${EVALUE}" \
 -outfmt "6 qseqid sseqid pident qlen slen length evalue" \
@@ -172,8 +172,8 @@ awk -v min_perc_len="${MIN_PERC_LEN}" \
     print $0
   }
 
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}.blout" > \
-   "${OUTPUT_DIR}/${SAMPLE_NAME}_filt.blout"
+}' "${OUTPUT_DIR}/blout.tsv" > \
+   "${OUTPUT_DIR}/blout_filt.tsv"
 
 if [[ $? -ne "0" ]]; then
   echo "awk filtering blout file failed"
@@ -197,7 +197,7 @@ if (query_id != query_id_prev) {
   system("mkdir " OUTPUT_DIR"/"query_id)
 }
 
-print $0 >> OUTPUT_DIR"/"query_id"/"query_id".blout"
+print $0 >> OUTPUT_DIR"/"query_id"/query_blout_filt.tsv"
 
 query_id_prev = query_id
 
@@ -211,7 +211,7 @@ query_id_prev = query_id
       
     }
   } 
-}' "${OUTPUT_DIR}/${SAMPLE_NAME}_filt.blout"
+}' "${OUTPUT_DIR}/blout_filt.tsv"
 
 if [[ $? -ne "0" ]]; then
   echo "awk command failed"

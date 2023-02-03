@@ -248,7 +248,7 @@ done
 # 9. Run module3: gbk parsing
 ###############################################################################
 
-ls "${OUTPUT_DIR}"/*/downloaded.gbk | \
+ls "${OUTPUT_DIR}"/*/"downloaded.gbk" | \
 while read LINE; do
 
   if [[ ! -s "${LINE}" ]]; then 
@@ -267,4 +267,45 @@ while read LINE; do
 
 done
 
+###############################################################################
+# 10. Merge prased gbk and blast outputs
+###############################################################################
+
+ls "${OUTPUT_DIR}"/*/"parsed_gbk.tsv" | \
+while read LINE; do 
+
+ 
+  if [[ ! -s "${LINE}" ]]; then 
+    echo "file ${LINE} is empty"
+  fi  
+  
+  SUB_OUTPUT_DIR=$(dirname "${LINE}")
+  BLOUT="${SUB_OUTPUT_DIR}/query_blout_filt.tsv"
+  
+  if [[ ! -s "${BLOUT}" ]]; then 
+    echo "file ${BLOUT} is empty"
+  fi  
+
+  awk -v FS="\t" '{
+    if (NR == FNR) {
+    
+      subject_id = $2
+      subject_id = gensub(".[0-9]+$","","g",subject_id)
+      blout_array[subject_id]=$0
+      next;
+    }
+    
+    if (blout_array[$1] != "") { 
+      print blout_array[$1],$2,$3,$4,$5,$6,$7
+    }
+    
+  }' "${BLOUT}" "${LINE}"
+  
+  if [[ $? -ne "0" ]]; then
+    echo "merging blast and gbk files failed"
+    exit 1
+  fi  
+  
+done  >> "${OUTPUT_DIR}/geoblast_output.tsv"
+  
 
