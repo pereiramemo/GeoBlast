@@ -49,10 +49,10 @@ CONTAINER_SRC_DIR=/input
 CONTAINER_DST_DIR=/output
 
 singularity run \
---volume /etc/passwd:/etc/passwd:ro \
---volume /etc/group:/etc/group:ro \
---volume ${INPUT_DIR_HOST}:${CONTAINER_SRC_DIR}:rw \
---volume ${OUTPUT_DIR_HOST}:${CONTAINER_DST_DIR}:rw \
+--bind /etc/passwd:/etc/passwd:ro \
+--bind /etc/group:/etc/group:ro \
+--bind ${INPUT_DIR_HOST}:${CONTAINER_SRC_DIR}:rw \
+--bind ${OUTPUT_DIR_HOST}:${CONTAINER_DST_DIR}:rw \
 --detach=false \
 --rm \
 --user $(id -u):$(id -g) \
