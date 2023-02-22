@@ -18,6 +18,18 @@ The pipeline consists of three modules:
 &emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<QUERY\>)  
 &emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
 
+### Usage
+```
+Usage: geoblast_runner.bash <input file> <output directory> <options>
+--help                          print this help
+--min_id NUM                    minimum percentage of identity
+--min_perc_len NUM              minimum alignment percentage length
+--e_val NUM                     e-value
+--nslots NUM                    number of slots (default 2)
+--overwrite t|f                 overwrite current directory (default f)
+--sample_name CHAR              sample name (default input file name)
+```
+
 
 
     
