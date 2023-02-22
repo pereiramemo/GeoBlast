@@ -69,8 +69,3 @@ RUN chmod -R 777 /scripts/code/
 ################################################################################
 
 ENTRYPOINT ["/scripts/code/geoblast.sh"]
-
-
-
-  
-  
