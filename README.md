@@ -13,6 +13,12 @@ To install it simply download the one of these two wrap scripts:
 Docker: [geoblast_runner.sh](https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/docker/geoblast_runner.sh)  
 Singularity: [geoblast_runner.sh](https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/singularity/geoblast_runner.sh)  
 
+And add the execute permission:
+```
+chmod +x geoblast_runner.sh
+```
+
+
 ### Usage
 ```
 Usage: geoblast_runner.bash <input file> <output directory> <options>
