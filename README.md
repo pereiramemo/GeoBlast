@@ -38,7 +38,7 @@ Usage: geoblast_runner.bash <input file> <output directory> <options>
 &emsp;  **geoblast_output.tsv** (geoblast final output table)  
 &emsp;   /\<QUERY\>:  
 &emsp;  &emsp; acc2download.txt (list of acc hits to be downloaded)  
-&emsp;  &emsp; downloadad.gbk (downloaded gbk files of hits)  
+&emsp;  &emsp; downloaded.gbk (downloaded gbk files of hits)  
 &emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<QUERY\>)  
 &emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
 
