@@ -6,17 +6,12 @@ The pipeline consists of three modules:
 2. GenBank files download 
 3. Extract geographic location from GenBank files
 
-### Output
+### Install
 
-/main folder:  
-&emsp;  blout.tsv (row blast output)  
-&emsp;  blout_filt.tsv (filtered blast output)  
-&emsp;  **geoblast_output.tsv** (geoblast final output table)  
-&emsp;   /\<QUERY\>:  
-&emsp;  &emsp; acc2download.txt (list of acc hits to be downloaded)  
-&emsp;  &emsp; downloadad.gbk (downloaded gbk files of hits)  
-&emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<QUERY\>)  
-&emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
+GeoBlast runs with Docker or Singularity. 
+To install it simply download the one of the wrap scripts
+Docker: (geoblast_runner.sh)[https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/docker/geoblast_runner.sh]
+Singularity: (geoblast_runner.sh)[https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/singularity/geoblast_runner.sh]
 
 ### Usage
 ```
@@ -29,7 +24,17 @@ Usage: geoblast_runner.bash <input file> <output directory> <options>
 --overwrite t|f                 overwrite current directory (default f)
 --sample_name CHAR              sample name (default input file name)
 ```
+### Output
 
+/main folder:  
+&emsp;  blout.tsv (row blast output)  
+&emsp;  blout_filt.tsv (filtered blast output)  
+&emsp;  **geoblast_output.tsv** (geoblast final output table)  
+&emsp;   /\<QUERY\>:  
+&emsp;  &emsp; acc2download.txt (list of acc hits to be downloaded)  
+&emsp;  &emsp; downloadad.gbk (downloaded gbk files of hits)  
+&emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<QUERY\>)  
+&emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
 
 
     
