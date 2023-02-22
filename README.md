@@ -32,14 +32,14 @@ Usage: geoblast_runner.bash <input file> <output directory> <options>
 ```
 ### Output
 
-/main folder:  
+/output_dir:  
 &emsp;  blout.tsv (raw blast output)  
 &emsp;  blout_filt.tsv (filtered blast output)  
 &emsp;  **geoblast_output.tsv** (geoblast final output table)  
-&emsp;   /\<QUERY\>:  
+&emsp;   /\<query\>:  
 &emsp;  &emsp; acc2download.txt (list of acc hits to be downloaded)  
 &emsp;  &emsp; downloaded.gbk (downloaded gbk files of hits)  
-&emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<QUERY\>)  
+&emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to \<query\>)  
 &emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
 
 
