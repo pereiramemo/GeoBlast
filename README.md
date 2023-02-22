@@ -9,9 +9,9 @@ The pipeline consists of three modules:
 ### Install
 
 GeoBlast runs with Docker or Singularity. 
-To install it simply download the one of the wrap scripts
-Docker: (geoblast_runner.sh)[https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/docker/geoblast_runner.sh]
-Singularity: (geoblast_runner.sh)[https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/singularity/geoblast_runner.sh]
+To install it simply download the one of these two wrap scripts:  
+Docker: [geoblast_runner.sh](https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/docker/geoblast_runner.sh)
+Singularity: [geoblast_runner.sh](https://raw.githubusercontent.com/pereiramemo/GeoBlast/main/singularity/geoblast_runner.sh)
 
 ### Usage
 ```
