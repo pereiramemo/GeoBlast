@@ -1,5 +1,76 @@
 FROM ubuntu:22.04
 
-# Update Ubuntu Software repository
-RUN apt update
+################################################################################
+# Create folders
+################################################################################
+
+RUN mkdir -p /output/
+RUN mkdir -p /input/
+RUN mkdir -p /scripts/
+RUN mkdir -p /resources/
+
+################################################################################
+# Update, upgrade and get basic packages
+################################################################################
+
+RUN apt-get update
 RUN apt upgrade -y
+RUN apt-get install -y apt-utils 
+
+RUN apt-get install -y \
+  wget \
+  zip \
+  unzip \
+  build-essential \
+  gawk \
+  joe \
+  less
+
+################################################################################
+# Install blast
+################################################################################
+  
+RUN wget -P /scripts https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.13.0+-x64-linux.tar.gz
+RUN tar xzfv /scripts/ncbi-blast-2.13.0+-x64-linux.tar.gz -C /scripts/
+
+################################################################################
+# Install esearch
+################################################################################
+
+# edirect is copied from local installation, there is a problem with xtract
+# RUN sh -c "$(wget -q ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/install-edirect.sh -O -)"
+# RUN mv "${HOME}"/edirect /scripts/
+
+################################################################################
+# Install python3 and conda
+################################################################################
+
+RUN apt-get install -y \
+  python3 \
+  python3-biopython
+
+################################################################################
+# Copy resources
+################################################################################
+
+COPY resources/SILVA* /resources/
+COPY code /scripts/code
+COPY edirect /scripts/edirect
+
+################################################################################
+# permissions
+################################################################################
+
+RUN chmod -R 777 /output/
+RUN chmod -R 777 /scripts/code/
+
+################################################################################
+# entry point
+################################################################################
+
+ENTRYPOINT ["/scripts/code/geoblast.sh"]
+
+
+
+  
+  
