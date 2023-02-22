@@ -9,14 +9,14 @@ The pipeline consists of three modules:
 ### Output
 
 /main folder:  
-&emsp;  blast raw  
-&emsp;  blast filtered  
-&emsp;  output table  
-&emsp;   /ASV:  
-&emsp;  &emsp; acc2download.txt  
-&emsp;  &emsp; downloadad.gbk  
-&emsp;  &emsp; blast filtered  
-&emsp;  &emsp; parsed_gbk.tsv  
+&emsp;  blout.tsv (row blast output)  
+&emsp;  blout_filt.tsv (filtered blast output)  
+&emsp;  geoblast_output.tsv (geoblast final output table)  
+&emsp;   /<QUERY>:  
+&emsp;  &emsp; acc2download.txt (list of acc hits to be downloaded)  
+&emsp;  &emsp; downloadad.gbk (downloaded gbk files of hits)  
+&emsp;  &emsp; query_blout_filt.tsv (section of blout_filt.tsv corresponding to <QUERY>)  
+&emsp;  &emsp; parsed_gbk.tsv (parsed fields of gbk files)  
 
 
     
