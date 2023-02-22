@@ -1,8 +1,8 @@
+#!/bin/bash -l
+
 ###############################################################################
 ### Geo Blast Piepeline
 ###############################################################################
-
-#!/bin/bash
 
 ###############################################################################
 # 1. set environment
@@ -11,7 +11,7 @@
 set -o pipefail
 set +x
 
-source /home/epereira/workspace/dev/geoblast/code/conf.sh
+source /scripts/code/conf.sh
 
 ###############################################################################
 # 2. Define help
@@ -19,15 +19,12 @@ source /home/epereira/workspace/dev/geoblast/code/conf.sh
 
 show_usage(){
   cat <<EOF
-Usage: ./geoblast.sh 
+Usage: geoblast_runner.bash <input file> <output directory> <options>
 --help                          print this help
---input CHAR                    input fasta file
---input_db CHAR                 input data base
 --min_id NUM                    minimum percentage of identity
 --min_perc_len NUM              minimum alignment percentage length
 --e_val NUM                     e-value
 --nslots NUM                    number of slots (default 2)
---output_dir CHAR               output dir name 
 --overwrite t|f                 overwrite current directory (default f)
 --sample_name CHAR              sample name (default input file name)
 EOF
@@ -47,13 +44,6 @@ while :; do
   --input)
   if [[ -n "${2}" ]]; then
     INPUT="${2}"
-    shift
-  fi
-  ;;
-#############
-  --input_db)
-  if [[ -n "${2}" ]]; then
-    INPUT_DB="${2}"
     shift
   fi
   ;;
@@ -129,8 +119,8 @@ if [[ ! -f "${INPUT}" ]]; then
   exit 1
 fi
 
-if [[ ! -f "${INPUT_DB}" ]]; then
-  echo "Input db files missing"
+if [[ -z "${OUTPUT_DIR}" ]]; then
+  echo "Output dir missing"
   exit 1
 fi
 
@@ -165,6 +155,8 @@ fi
 ###############################################################################
 # 6. Check output directories
 ###############################################################################
+
+OUTPUT_DIR="/output/${OUTPUT_DIR}"
 
 if [[ -d "${OUTPUT_DIR}" ]]; then
 
@@ -204,6 +196,8 @@ fi
 # 7. Run module1: blastn search
 ###############################################################################
 
+echo -e "\nrunning blastn search ...\n"
+
 "${CODE}"/module1/module1_blast_search.sh \
 --input "${INPUT}" \
 --input_db "${INPUT_DB}" \
@@ -222,6 +216,8 @@ fi
 ###############################################################################
 # 8. Run module2: gbk download
 ###############################################################################
+
+echo -e "\ndownloading gbks ...\n"
 
 ls "${OUTPUT_DIR}"/*/"acc2download.txt" | \
 while read LINE; do
@@ -247,6 +243,8 @@ done
 ###############################################################################
 # 9. Run module3: gbk parsing
 ###############################################################################
+
+echo -e "\nparsing gbks ...\n"
 
 ls "${OUTPUT_DIR}"/*/"downloaded.gbk" | \
 while read LINE; do
@@ -308,4 +306,3 @@ while read LINE; do
   
 done  >> "${OUTPUT_DIR}/geoblast_output.tsv"
   
-

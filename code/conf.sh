@@ -2,17 +2,23 @@
 ### 1. Dirs
 ###############################################################################
 
-BIN="/home/epereira/bin/"
+BIN="/scripts/"
 
-CODE="/home/epereira/workspace/dev/geoblast/code"
+CODE="${BIN}/code"
 
 ###############################################################################
 ### 2. Tools
 ###############################################################################
 
-blast_version="2.9.0+"
-makeblastdb="${BIN}/blast/ncbi-blast-${blast_version}/bin/makeblastdb"
-blastn="${BIN}/blast/ncbi-blast-${blast_version}/bin/blastn"
+blast_version="2.13.0+"
+makeblastdb="${BIN}/ncbi-blast-${blast_version}/bin/makeblastdb"
+blastn="${BIN}/ncbi-blast-${blast_version}/bin/blastn"
 esearch="${BIN}/edirect/esearch"
 efetch="${BIN}/edirect/efetch"
 python3="/usr/bin/python3"
+
+###############################################################################
+### 3. Files
+###############################################################################
+
+INPUT_DB="/resources/SILVA_138.1_SSURef_NR99_tax_silva.fasta"

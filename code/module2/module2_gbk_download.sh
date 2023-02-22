@@ -1,8 +1,8 @@
+#!/bin/bash -l
+
 ###############################################################################
 ### GBK download module
 ###############################################################################
-
-#!/bin/bash
 
 ###############################################################################
 # 1. set environment
@@ -10,7 +10,7 @@
 
 set -o pipefail
 
-source /home/epereira/workspace/dev/geoblast/code/conf.sh
+source /scripts/code/conf.sh
 
 ###############################################################################
 # 2. Define help
@@ -93,10 +93,13 @@ fi
 ###############################################################################
 
 for i in $(cat "${INPUT}"); do
+
+   echo "${i}"
+
   "${esearch}" -db nucleotide -query "${i}" | \
   "${efetch}" -format gp >> "${OUTPUT_DIR}/downloaded.gbk"
    
-  if [[ ! -f "${INPUT}" ]]; then
+  if [[ $? -ne "0" ]]; then
     echo "Download ${i} failed"
     exit 1
   fi
