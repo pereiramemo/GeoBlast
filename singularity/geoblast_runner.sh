@@ -14,11 +14,8 @@ function realpath() {
 
 
 if [[ "${1}" == "--help" ]]; then
-  docker run \
-  --detach=false \
-  --rm \
-  --user $(id -u):$(id -g) \
-  epereira/geoblast:latest --help
+  singularity run \
+  docker://epereira/geoblast:latest --help
   exit 0
 fi
 
@@ -53,9 +50,6 @@ singularity run \
 --bind /etc/group:/etc/group:ro \
 --bind ${INPUT_DIR_HOST}:${CONTAINER_SRC_DIR}:rw \
 --bind ${OUTPUT_DIR_HOST}:${CONTAINER_DST_DIR}:rw \
---detach=false \
---rm \
---user $(id -u):$(id -g) \
 docker://epereira/geoblast:latest \
 --input "${CONTAINER_SRC_DIR}/${INPUT_FILE}" \
 --output_dir "${OUTPUT_DIR}" \
