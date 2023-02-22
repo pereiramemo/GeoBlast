@@ -33,7 +33,7 @@ Usage: geoblast_runner.bash <input file> <output directory> <options>
 ### Output
 
 /main folder:  
-&emsp;  blout.tsv (row blast output)  
+&emsp;  blout.tsv (raw blast output)  
 &emsp;  blout_filt.tsv (filtered blast output)  
 &emsp;  **geoblast_output.tsv** (geoblast final output table)  
 &emsp;   /\<QUERY\>:  
